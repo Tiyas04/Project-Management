@@ -1,6 +1,9 @@
 import SideBar from "../components/SideBar";
+import { useNavigate } from "react-router-dom";
 
 function Projects() {
+  const navigate = useNavigate()
+
   const projects = [
     {
       name: "Project Alpha",
@@ -38,7 +41,7 @@ function Projects() {
             All Projects
           </h1>
 
-          <button className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition cursor-pointer">
+          <button onClick={() =>{navigate("/addproject")}} className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition cursor-pointer">
             + Create Project
           </button>
         </header>

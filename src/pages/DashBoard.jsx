@@ -1,6 +1,9 @@
 import SideBar from "../components/SideBar";
+import { useNavigate } from "react-router-dom";
 
 function DashBoard() {
+const navigate = useNavigate()
+
   return (
     <div className="flex min-h-screen bg-gray-50 text-gray-800">
       {/* Sidebar */}
@@ -13,7 +16,7 @@ function DashBoard() {
           <h1 className="text-2xl md:text-3xl font-bold bg-linear-to-r from-emerald-500 to-cyan-600 bg-clip-text text-transparent">
             Dashboard
           </h1>
-          <button className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition cursor-pointer">
+          <button onClick={navigate("/addproject")} className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition cursor-pointer">
             New Project
           </button>
         </header>

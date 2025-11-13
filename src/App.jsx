@@ -6,6 +6,7 @@ import DashBoard from "./pages/DashBoard";
 import Projects from "./pages/Projects";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
+import AddProject from "./pages/AddProject";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/profile" element={<Profile/>} />
+        <Route path="/addproject" element={<AddProject/>} />
       </Routes>
     </BrowserRouter>
   );

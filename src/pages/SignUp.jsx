@@ -13,6 +13,7 @@ import {
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -29,15 +30,25 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await axios.post(
         `${import.meta.env.VITE_API_URL}/user/register`,
         formData
       );
-
-      console.log("User registered successfully");
+      console.log("✅ User registered successfully");
+      alert("User registered successfully!");
+      setFormData({
+        email: "",
+        password: "",
+        name: "",
+        username: "",
+      });
     } catch (error) {
-      console.error("User registration failed", error);
+      console.error("❌ User registration failed", error);
+      alert("Registration failed! Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,8 +78,8 @@ function SignUp() {
           </div>
 
           {/* Form Section */}
-          <div className="p-8 space-y-5">
-            {/* Name Input */}
+          <form onSubmit={handleSubmit} className="p-8 space-y-5">
+            {/* Full Name */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 block">
                 Full Name
@@ -87,7 +98,7 @@ function SignUp() {
               </div>
             </div>
 
-            {/*Username Input*/}
+            {/* Username */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 block">
                 Username
@@ -106,7 +117,7 @@ function SignUp() {
               </div>
             </div>
 
-            {/* Email Input */}
+            {/* Email */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 block">
                 Email Address
@@ -125,7 +136,7 @@ function SignUp() {
               </div>
             </div>
 
-            {/* Password Input */}
+            {/* Password */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 block">
                 Password
@@ -142,6 +153,7 @@ function SignUp() {
                   required
                 />
                 <button
+                  type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
@@ -154,12 +166,24 @@ function SignUp() {
               </div>
             </div>
 
+            {/* Submit Button */}
             <button
-              className="w-full bg-linear-to-br from-emerald-600 via-teal-600 to-cyan-600 text-white font-semibold py-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
-              onClick={handleSubmit}
+              type="submit"
+              disabled={loading}
+              className={`w-full font-semibold py-4 rounded-xl flex items-center justify-center gap-2 group cursor-pointer transition-all duration-300 ${
+                loading
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-linear-to-br from-emerald-600 via-teal-600 to-cyan-600 text-white hover:shadow-lg transform hover:scale-105"
+              }`}
             >
-              Create Account
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {loading ? (
+                <span className="animate-pulse">Creating Account...</span>
+              ) : (
+                <>
+                  Create Account
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
 
             {/* Sign In Link */}
@@ -172,9 +196,10 @@ function SignUp() {
                 Sign in
               </a>
             </p>
-          </div>
+          </form>
         </div>
       </div>
+
       {/* Footer */}
       <div className="absolute bottom-5 text-center text-white text-sm">
         <p className="opacity-90">

@@ -8,6 +8,7 @@ function SignIn() {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -18,11 +19,16 @@ function SignIn() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/user/login`, formData);
-      console.log("Login successful");
+      console.log("✅ Login successful");
+      alert("Login successful!");
     } catch (error) {
-      console.error("Login failed,", error);
+      console.error("❌ Login failed:", error);
+      alert("Invalid username or password");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,8 +58,8 @@ function SignIn() {
           </div>
 
           {/* Form Section */}
-          <div className="p-8 space-y-5">
-            {/*Username Input*/}
+          <form onSubmit={handleSubmit} className="p-8 space-y-5">
+            {/* Username Input */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 block">
                 Username
@@ -89,6 +95,7 @@ function SignIn() {
                   required
                 />
                 <button
+                  type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
@@ -101,15 +108,29 @@ function SignIn() {
               </div>
             </div>
 
+            {/* Submit Button */}
             <button
-              className="w-full bg-linear-to-br from-purple-600 via-pink-600 to-rose-600 text-white font-semibold py-4 rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 group cursor-pointer"
-              onClick={handleSubmit}
+              type="submit"
+              disabled={loading}
+              className={`w-full font-semibold py-4 rounded-xl flex items-center justify-center gap-2 group cursor-pointer transition-all duration-300 ${
+                loading
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-linear-to-br from-purple-600 via-pink-600 to-rose-600 text-white hover:shadow-lg transform hover:scale-105"
+              }`}
             >
-              Sign In
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {loading ? (
+                <>
+                  <span className="animate-pulse">Signing In...</span>
+                </>
+              ) : (
+                <>
+                  Sign In
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </button>
 
-            {/* Sign In Link */}
+            {/* Sign Up Link */}
             <p className="text-center text-sm text-gray-600">
               New to Projectro?{" "}
               <a
@@ -119,9 +140,10 @@ function SignIn() {
                 Create Account
               </a>
             </p>
-          </div>
+          </form>
         </div>
       </div>
+
       {/* Footer */}
       <div className="absolute bottom-5 text-center text-white text-sm">
         <p className="opacity-90">
