@@ -1,4 +1,4 @@
-import { Home, Briefcase, Settings, ChevronRight } from "lucide-react";
+import { Home, Briefcase, Settings, ChevronRight, UserRoundPenIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -12,7 +12,7 @@ function SideBar() {
   const items = [
     { name: "Dashboard", icon: Home, path: "/dashboard" },
     { name: "Projects", icon: Briefcase, path: "/projects" },
-    { name: "Settings", icon: Settings, path: "/settings" },
+    {name:"Profile", icon: UserRoundPenIcon, path:"/profile" }
   ];
 
   // ✅ Sync sidebar with the current route
@@ -72,21 +72,6 @@ function SideBar() {
             );
           })}
         </nav>
-      </div>
-
-      {/* Footer */}
-      <div className="p-4 border-t border-white/20">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-white/30 flex items-center justify-center font-semibold">
-            U
-          </div>
-          {isExpanded && (
-            <div>
-              <p className="text-sm font-medium">User Name</p>
-              <p className="text-xs text-white/70">View Profile</p>
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );

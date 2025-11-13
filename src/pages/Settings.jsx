@@ -90,36 +90,6 @@ function Settings() {
               </button>
             </div>
           </div>
-
-          {/* ----- App Preferences Card ----- */}
-          <div className="bg-white rounded-2xl shadow-md p-6 lg:col-span-2 border border-gray-100">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">App Preferences</h2>
-
-            <div className="space-y-4">
-
-              <div className="flex items-center justify-between">
-                <p className="text-gray-700">Email Notifications</p>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" defaultChecked className="sr-only peer" />
-                  <div className="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-emerald-500 transition"></div>
-                  <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full 
-                  peer-checked:translate-x-5 transition"></div>
-                </label>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <p className="text-gray-700">Push Alerts</p>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" />
-                  <div className="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-emerald-500 transition"></div>
-                  <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full 
-                  peer-checked:translate-x-5 transition"></div>
-                </label>
-              </div>
-
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
